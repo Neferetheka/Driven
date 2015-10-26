@@ -39,7 +39,7 @@ public class DropboxActivity extends Activity {
         super.onResume();
 
         try{
-            if (driven.getDropboxApi().getSession().authenticationSuccessful()) {
+            if (driven.getDropboxApi().getSession().authenticationSuccessful() && credential.getToken() != null) {
                 driven.getDropboxApi().getSession().finishAuthentication();
                 credential.getToken().setAccessToken(driven.getDropboxApi().getSession().getOAuth2AccessToken());
                 credential.save(driven.getName());

@@ -96,14 +96,16 @@ public class GoogleDriveActivity extends Activity {
         storageProvider.authenticateAsync(credential, new Task.WithErrorReporting<Result<DrivenException>>() {
             @Override
             public void onCompleted(Result<DrivenException> result) {
-                if (result.isSuccess())
-                    successfullyAuthenticated();
-                else {
-                    if (result.getException().getCause() instanceof UserRecoverableAuthIOException) {
-                        UserRecoverableAuthIOException exception = (UserRecoverableAuthIOException) result.getException().getCause();
-                        startActivityForResult(exception.getIntent(), REQUEST_AUTHORIZATION);
-                    } else {
-                        onError(result.getException());
+                if(result != null) {
+                    if (result.isSuccess())
+                        successfullyAuthenticated();
+                    else {
+                        if (result.getException().getCause() instanceof UserRecoverableAuthIOException) {
+                            UserRecoverableAuthIOException exception = (UserRecoverableAuthIOException) result.getException().getCause();
+                            startActivityForResult(exception.getIntent(), REQUEST_AUTHORIZATION);
+                        } else {
+                            onError(result.getException());
+                        }
                     }
                 }
             }
