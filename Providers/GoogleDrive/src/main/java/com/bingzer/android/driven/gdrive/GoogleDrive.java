@@ -340,6 +340,7 @@ public final class GoogleDrive extends AbsStorageProvider {
             return true;
         }
         catch (IOException e){
+            e.printStackTrace();
             return false;
         }
     }
